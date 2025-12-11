@@ -21,6 +21,7 @@ if (replication.controlled_proxy) {
 	speed_x = clamp(speed_x, -max_speed, max_speed);
 	speed_y = clamp(speed_y, -max_speed, max_speed);
 	
+	facing_direction = floor(point_direction(x, y, x + speed_x, y + speed_y) / ( 360 / 16 ));
 	
 	if (z <= 0) {
 		if (keyboard_check(vk_space) && window_has_focus()) {
@@ -43,66 +44,14 @@ if (replication.controlled_proxy) {
 	speed_y = approach(speed_y, 0, _friction);
 	speed_z -= 0.1;
 	
-	// -- create a track in the snow.
-	if ( _on_ground )
-	{
-		layer_sprite_create("Tracks", bbox_left, bbox_bottom, spr_particle_track);
-		layer_sprite_create("Tracks", bbox_right, bbox_bottom, spr_particle_track);
-	}
 	
 	// CONTROL CAMERA
 	var _camera = view_camera[0];
 	camera_set_view_pos(_camera, x - camera_get_view_width(_camera) / 2, y - camera_get_view_height(_camera) / 2 + 100);
 	
-	// SPRITE
-	facing_direction = floor(point_direction(x, y, x + speed_x, y + speed_y) / ( 360 / 16 ));
-	switch(facing_direction) {
-		case 4:
-		case 5:
-		case 6:
-		case 7:
-		case 8:
-			// all the way left
-			image_xscale = -1;
-			image_index = 2; 
-			break;
-		case 9:
-		case 10:
-			// sort of left
-			image_xscale = -1;
-			image_index = 1;
-			break;
-		case 0:
-		case 1:
-		case 2:
-		case 3:
-		case 15:
-			// all the way right
-			image_xscale = 1;
-			image_index = 2;
-			break;
-		case 13:
-		case 14:
-			// sort of right
-			image_xscale = 1;
-			image_index = 1;
-			break;
-		case 11:
-		case 12:
-			// straight down
-			image_xscale = 1;
-			image_index = 0;
-			//_leaning_in_for_full_speed = true;
-		break;
-	}
-	
-	// player in the air
-	if (z > 0) {
-		image_xscale = 1;
-		image_index = 3;
-	}
 	
 } else if (replication.replicated_proxy) {
+	
 	x += (server_x - x) * 0.8;
 	if (abs(server_x - x) < 1) {
 		x = server_x;
@@ -119,4 +68,58 @@ if (replication.controlled_proxy) {
 	}
 }
 
+// SPRITE
+switch(facing_direction) {
+	case 4:
+	case 5:
+	case 6:
+	case 7:
+	case 8:
+		// all the way left
+		image_xscale = -1;
+		image_index = 2; 
+		break;
+	case 9:
+	case 10:
+		// sort of left
+		image_xscale = -1;
+		image_index = 1;
+		break;
+	case 0:
+	case 1:
+	case 2:
+	case 3:
+	case 15:
+		// all the way right
+		image_xscale = 1;
+		image_index = 2;
+		break;
+	case 13:
+	case 14:
+		// sort of right
+		image_xscale = 1;
+		image_index = 1;
+		break;
+	case 11:
+	case 12:
+		// straight down
+		image_xscale = 1;
+		image_index = 0;
+		//_leaning_in_for_full_speed = true;
+	break;
+}
+	
+// -- create a track in the snow.
+var _on_ground = ( z == 0 );
+if ( _on_ground )
+{
+	layer_sprite_create("Tracks", bbox_left, bbox_bottom, spr_particle_track);
+	layer_sprite_create("Tracks", bbox_right, bbox_bottom, spr_particle_track);
+}
+	
+// player in the air
+if (z > 0) {
+	image_xscale = 1;
+	image_index = 3;
+}
 

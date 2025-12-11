@@ -20,6 +20,8 @@ facing_direction = 0
 // ---- Network ----
 replication = new ObjectReplication();
 
+name = "";
+
 server_x = x;
 server_y = y;
 server_z = z;
@@ -34,6 +36,10 @@ replication.add_variable("y", method(id, function() { return round(y); }), metho
 
 replication.add_variable("z", method(id, function() { return round(z); }), method(id, function(_z) { 
 	server_z = _z;
+}));
+
+replication.add_variable("name", method(id, function() { return name; }), method(id, function(_name) { 
+	name = _name;
 }));
 
 replication.add_variable("facing_direction", method(id, function() { return facing_direction; }), method(id, function(_facing_direction) {
