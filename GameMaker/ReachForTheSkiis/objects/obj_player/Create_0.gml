@@ -4,14 +4,13 @@ if (live_call()) return live_result;
 
 // Physics
 min_speed = 1;
-max_speed = 5;
+max_speed = 3;
 max_speed_z = 3;
 speed_x = 0;
 speed_y = 0;
 speed_z = 0;
 z = 0;
-ground_friction = 0.5; // amount of friction applied by basic ground. ( as opposed to, like, friction on ice tiles or something else that doesn't exist yet )
-ground_slope = 0; // % of how much slope the player is on. Higher slope means higher friction.
+ground_friction = 0.5; // amount of friction applied by basic ground.
 
 
 // Sprite
