@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"GameMode",
+  "%Name":"MultiClientGetProxyPath",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"GameMode",
+  "name":"MultiClientGetProxyPath",
   "parent":{
-    "name":"Network",
-    "path":"folders/Network.yy",
+    "name":"MultiClient",
+    "path":"folders/MultiClient.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

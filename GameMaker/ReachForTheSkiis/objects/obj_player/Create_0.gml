@@ -16,8 +16,6 @@ controlled_proxy = false;
 
 owning_controller = noone;
 
-replicated_x = x;
-replicated_y = y;
-replicated_z = z;
-replicated_image_speed = image_speed;
-replicated_direction = 0;
+replication = new ReplicatedVariableSet();
+replication.add_variable("x", method(id, function() { return x; }), method(id, function(_x) { x = _x; }));
+replication.add_variable("y", method(id, function() { return y; }), method(id, function(_y) { y = _y; }));

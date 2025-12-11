@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"GameMode",
+  "%Name":"World",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"GameMode",
+  "name":"World",
   "parent":{
     "name":"Network",
     "path":"folders/Network.yy",

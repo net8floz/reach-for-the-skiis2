@@ -2,7 +2,7 @@ if (live_call()) return live_result;
 
 draw_sprite_ext(sprite_index, image_index, x, y - z, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 
-if (!replicated_proxy) {
+if (controlled_proxy) {
 	draw_set_color(c_fuchsia);
 	draw_set_alpha(0.1);
 

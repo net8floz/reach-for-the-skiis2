@@ -5,8 +5,9 @@ function Server() constructor {
 	clients = [];
 
 	write_buffer = buffer_create(0, buffer_grow, 1);
+	event_channels = {};
 	
-	add_listen_server_client = function(_local_client) {
+	function add_listen_server_client(_local_client) {
 		var _server_client = new ServerClient();
 		_server_client.local_client = _local_client;
 		
@@ -14,7 +15,7 @@ function Server() constructor {
 		_server_client.enqueue_message("connected", "omg thanks for already being here!");
 	}
 
-	handle_socket_connected = function(_socket) {
+	function handle_socket_connected(_socket) {
 		log(log_category, $"socket {_socket} joins");
 		
 		var _server_client = new ServerClient();
@@ -22,9 +23,11 @@ function Server() constructor {
 		
 		array_push(clients, _server_client);
 		_server_client.enqueue_message("connected", "omg thanks for coming!");
+		
+		global.game_mode.create_remote_player(_server_client);
 	}
 
-	handle_socket_disconnected = function(_socket) {
+	function handle_socket_disconnected(_socket) {
 		log(log_category, $"socket {_socket} disconnected");
 		
 		for (var _i = 0; _i < array_length(clients); _i++) {
@@ -35,16 +38,31 @@ function Server() constructor {
 		}
 	}
 
-	broadcast_to_clients = function(_event_name, _payload) {
+	function flush_client_messages() {
+		for (var _i = 0; _i < array_length(clients); _i++) {
+			clients[_i].flush_message_queue();
+		}
+	}
+	
+	
+	function broadcast_to_clients(_event_name, _payload) {
 		for (var _i = 0; _i < array_length(clients); _i++) {
 			clients[_i].enqueue_message(_event_name, _payload);
 		}
 	}
 	
-	flush_client_messages = function() {
-		for (var _i = 0; _i < array_length(clients); _i++) {
-			clients[_i].flush_message_queue();
+	function process_incoming_message_queue(_message_queue) {
+		for (var _i = 0; _i < array_length(_message_queue); _i++) {
+			get_channel(_message_queue[_i].event_name).execute(_message_queue[_i].payload);	
 		}
+	}
+	
+	function get_channel(_event) {
+		if (event_channels[$ _event] == undefined) {
+			event_channels[$ _event] = new Delegate();
+		}
+	
+		return event_channels[$ _event];
 	}
 }
 

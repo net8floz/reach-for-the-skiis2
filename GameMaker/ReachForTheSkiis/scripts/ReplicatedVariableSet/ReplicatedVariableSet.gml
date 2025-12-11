@@ -1,8 +1,14 @@
 function ReplicatedVariableSet() constructor {
 	getters = [];
-	setters = [];
+	setters = {};
 	last_state = {};
 	last_diff = {};
+	last_diff_has_size = false;
+	
+	function add_variable(_name, _getter, _setter) {
+		array_push(getters, [_name, _getter]);
+		setters[$ _name] = _setter;
+	}
 	
 	function update_controlled_variables() { 
 		var _new_state = {};
@@ -12,16 +18,18 @@ function ReplicatedVariableSet() constructor {
 			_new_state[$ _var_name] = getters[_i][1]();
 			if (_new_state[$ _var_name] != last_state[$ _var_name]) {
 				last_diff[$ _var_name] = _new_state[$ _var_name];
+				last_diff_has_size = true;
 			}
 		}
 		
 		last_state = _new_state;
 	}
 	
-	function set_replicated_variables(_key_value_pairs) {
+	function update_replicated_variables(_key_value_pairs) {
 		var _names = variable_struct_get_names(_key_value_pairs);
 		for (var _i = 0; _i < array_length(_names); _i++) {
-			
+			var _name = _names[_i];
+			setters[$ _name](_key_value_pairs[$ _name]);
 		}
 	}
 	
@@ -36,9 +44,13 @@ function ReplicatedVariableSet() constructor {
 		return _new_state;
 	}
 	
-	function clear_last_diff() {
-		var _ret = last_diff;
-		last_diff = {};
-		return _ret;
+	function clear_diff() {
+		if (last_diff_has_size) {
+			var _ret = last_diff;
+			last_diff = {};
+			return _ret;
+		} else {
+			return undefined;	
+		}
 	}
 }

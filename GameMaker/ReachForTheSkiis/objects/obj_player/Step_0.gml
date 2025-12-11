@@ -1,12 +1,5 @@
 if (live_call()) return live_result;
 
-if (replicated_proxy) {
-	x = replicated_x;
-	y = replicated_y;
-	z = replicated_z;
-	facing_direction = replicated_facing_direction;
-} 
-
 if (controlled_proxy) {
 	var _ax = x - mouse_x;
 	var _ay = y - mouse_y;
