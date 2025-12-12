@@ -33,3 +33,7 @@ if (z > 0) {
 	draw_circle(x, y + 12, lerp(_size_min, _size_max, _t), false);	
 	draw_set_alpha(1);
 }
+
+
+// DEBUG
+draw_text(x, y + 10, string(ground_friction));

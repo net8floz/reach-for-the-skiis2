@@ -1,6 +1,6 @@
 if (live_call()) return live_result;
 
-with ( GROUND ) {
+with ( instance_position(x, y, GROUND) ) {
 	other.ground_friction = ground_friction;
 	other.ground_slope = ground_slope;
 }
@@ -21,22 +21,79 @@ if ( _allow_input )
 	move_y = ( key_down - key_up );
 }
 
+// SPRITE
+if ( move_x != 0 || move_y != 0 )
+	facing_direction = floor(point_direction(x, y, x+move_x, y+move_y) / ( 360 / 16 ));
+	
+switch(facing_direction) {
+	case 4:
+	case 5:
+	case 6:
+	case 7:
+	case 8:
+		// all the way left
+		image_xscale = -1;
+		image_index = 2; 
+		max_speed = 0;
+		move_direction_target = 180;
+		break;
+	case 9:
+	case 10:
+		// sort of left
+		image_xscale = -1;
+		image_index = 1;
+		max_speed = 2;
+		move_direction_target = 225;
+		break;
+	case 0:
+	case 1:
+	case 2:
+	case 3:
+	case 15:
+		// all the way right
+		image_xscale = 1;
+		image_index = 2;
+		max_speed = 0;
+		move_direction_target = 360;
+		break;
+	case 13:
+	case 14:
+		// sort of right
+		image_xscale = 1;
+		image_index = 1;
+		max_speed = 5;
+		move_direction_target = 315;
+		break;
+	case 11:
+	case 12:
+		// straight down
+		image_xscale = 1;
+		image_index = 0;
+		max_speed = 10;
+		move_direction_target = 270;
+		//_leaning_in_for_full_speed = true;
+	break;
+}
+
 // - Process Playerstate
 if (replication.controlled_proxy) {
 	
 	// -- PHYSICS --
 	var _leaning_for_full_speed = (key_down);
 	var _travelling_up = move_y < 0;
-	var _max_speed = max_speed + (image_index == 0) + (image_index <= 1)/2 - _travelling_up + ground_slope;
 	
-	if ( move_x != 0 ) {
-		speed_x = lerp(speed_x, _max_speed*move_x, 0.1 + _leaning_for_full_speed*0.03);
-	}
+	move_direction = lerp(move_direction, move_direction_target, 0.2);
+	move_direction = approach(move_direction, move_direction_target, 0.01);
+
+	speed_xy = lerp(speed_xy, max_speed-ground_friction, 0.005);
+	speed_xy = approach(speed_xy, max_speed-ground_friction, 0.02);
+	speed_xy = max(0, speed_xy);
+
+	speed_x = lengthdir_x(speed_xy, move_direction);
+	speed_y = lengthdir_y(speed_xy, move_direction);
 	
-	if ( move_y != 0 ) {
-		speed_y = lerp(speed_y, _max_speed*move_y, 0.06 + _leaning_for_full_speed*0.03);
-	}
-	
+	//if ( move_x != 0 ) speed_x += lengthdir_x(0.01, move_direction);
+	//if ( move_y != 0 ) speed_y += lengthdir_y(0.01, move_direction);
 	
 	if (z <= 0) {
 		if (keyboard_check(vk_space) && window_has_focus()) {
@@ -54,10 +111,11 @@ if (replication.controlled_proxy) {
 	}
 
 	var _on_ground = ( z == 0 );
-	var _friction = ground_friction * _on_ground * 0.1;
+	var _friction = ground_friction * _on_ground;
 	speed_x = approach(speed_x, 0, _friction);
 	speed_y = approach(speed_y, 0, _friction);
 	speed_z -= 0.1;
+
 	
 	
 	// CONTROL CAMERA
@@ -81,50 +139,6 @@ if (replication.controlled_proxy) {
 	if (abs(server_z - z) < 1) {
 		z = server_z;
 	}
-}
-
-// SPRITE
-if ( move_x != 0 || move_y != 0 )
-	facing_direction = floor(point_direction(x, y, x+move_x, y+move_y) / ( 360 / 16 ));
-	
-switch(facing_direction) {
-	case 4:
-	case 5:
-	case 6:
-	case 7:
-	case 8:
-		// all the way left
-		image_xscale = -1;
-		image_index = 2; 
-		break;
-	case 9:
-	case 10:
-		// sort of left
-		image_xscale = -1;
-		image_index = 1;
-		break;
-	case 0:
-	case 1:
-	case 2:
-	case 3:
-	case 15:
-		// all the way right
-		image_xscale = 1;
-		image_index = 2;
-		break;
-	case 13:
-	case 14:
-		// sort of right
-		image_xscale = 1;
-		image_index = 1;
-		break;
-	case 11:
-	case 12:
-		// straight down
-		image_xscale = 1;
-		image_index = 0;
-		//_leaning_in_for_full_speed = true;
-	break;
 }
 	
 // -- create a track in the snow.

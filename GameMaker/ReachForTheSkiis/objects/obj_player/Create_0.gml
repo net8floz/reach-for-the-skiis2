@@ -20,9 +20,12 @@ max_speed_z = 3;
 speed_x = 0;
 speed_y = 0;
 speed_z = 0;
+speed_xy = 0;
 z = 0;
-ground_friction = 0.5; // amount of friction applied by basic ground.
+ground_friction = 0.01; // amount of friction applied by basic ground.
 ground_slope = 0; // amount of friction applied by basic ground.
+move_direction = 0;
+move_direction_target = 0;
 
 
 // Sprite

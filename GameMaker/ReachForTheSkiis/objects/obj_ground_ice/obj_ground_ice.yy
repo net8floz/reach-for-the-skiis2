@@ -5,8 +5,7 @@
   "managed":true,
   "name":"obj_ground_ice",
   "overriddenProperties":[
-    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"GROUND","path":"objects/GROUND/GROUND.yy",},"propertyId":{"name":"ground_friction","path":"objects/GROUND/GROUND.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"0.01",},
-    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"GROUND","path":"objects/GROUND/GROUND.yy",},"propertyId":{"name":"ground_slope","path":"objects/GROUND/GROUND.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"3",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"GROUND","path":"objects/GROUND/GROUND.yy",},"propertyId":{"name":"ground_friction","path":"objects/GROUND/GROUND.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"-5",},
   ],
   "parent":{
     "name":"Ground",
