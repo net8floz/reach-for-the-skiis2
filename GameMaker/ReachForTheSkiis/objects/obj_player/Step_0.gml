@@ -143,12 +143,20 @@ if (replication.controlled_proxy) {
 		}
 	
 		// - wipeout
-		if ( state == STATE.ski && place_meeting(x + speed_x, y + speed_y, OBSTA ) ) {
-			state = STATE.wipeout;
-			speed_x *=  0.6;
-			speed_y *= -0.7;
-			speed_z = 2 + max( 3, abs(speed_y)/1.25);
-			speed_y -= 1;
+		if ( state == STATE.ski ) {
+			var _col = instance_place(x + speed_x, y + speed_y, OBSTA );
+			
+			if ( z < 4 && instance_exists(_col) ) {
+				speed_z = 1 + max( 2, abs(speed_y)/2);
+				if ( _col.is_ramp == false ) {
+					state = STATE.wipeout;
+					speed_x *=  0.6;
+					
+					speed_y *= 0.5;
+					if ( _col.bounce_back ) then speed_y *= -1;
+					if ( abs(speed_y) < 1 ) then speed_y -= 1;
+				}
+			}
 		}
 	}
 	else

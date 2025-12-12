@@ -1,13 +1,15 @@
 {
   "$GMObject":"",
   "%Name":"OBSTA",
-  "eventList":[],
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
   "name":"OBSTA",
   "overriddenProperties":[],
   "parent":{
-    "name":"Game",
-    "path":"folders/Game.yy",
+    "name":"Obstacles",
+    "path":"folders/Rooms/World/Obstacles.yy",
   },
   "parentObjectId":null,
   "persistent":false,

@@ -1,10 +1,12 @@
 {
   "$GMObject":"",
-  "%Name":"obj_tree",
+  "%Name":"obj_wall_stone",
   "eventList":[],
   "managed":true,
-  "name":"obj_tree",
-  "overriddenProperties":[],
+  "name":"obj_wall_stone",
+  "overriddenProperties":[
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"OBSTA","path":"objects/OBSTA/OBSTA.yy",},"propertyId":{"name":"bounce_back","path":"objects/OBSTA/OBSTA.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"True",},
+  ],
   "parent":{
     "name":"Obstacles",
     "path":"folders/Rooms/World/Obstacles.yy",
@@ -25,14 +27,14 @@
   "physicsSensor":false,
   "physicsShape":1,
   "physicsShapePoints":[],
-  "physicsStartAwake":true,
+  "physicsStartAwake":false,
   "properties":[],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_tree",
-    "path":"sprites/spr_tree/spr_tree.yy",
+    "name":"spr_wall_stone",
+    "path":"sprites/spr_wall_stone/spr_wall_stone.yy",
   },
   "spriteMaskId":null,
   "visible":true,
