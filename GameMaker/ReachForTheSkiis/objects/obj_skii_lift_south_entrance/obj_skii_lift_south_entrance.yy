@@ -1,12 +1,11 @@
 {
   "$GMObject":"",
-  "%Name":"obj_skii_lift_linker",
+  "%Name":"obj_skii_lift_south_entrance",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_skii_lift_linker",
+  "name":"obj_skii_lift_south_entrance",
   "overriddenProperties":[],
   "parent":{
     "name":"SkiiLift",
@@ -31,9 +30,9 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_pixel",
-    "path":"sprites/spr_pixel/spr_pixel.yy",
+    "name":"spr_skii_lift_south_entrance",
+    "path":"sprites/spr_skii_lift_south_entrance/spr_skii_lift_south_entrance.yy",
   },
   "spriteMaskId":null,
-  "visible":false,
+  "visible":true,
 }

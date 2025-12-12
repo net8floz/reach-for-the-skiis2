@@ -1,24 +1,22 @@
-var _list = ds_list_create();
-instance_place_list(x, y, obj_skii_lift_pole, _list, false);
+var _south_entrance = instance_place(x, y, obj_skii_lift_south_entrance);
 
-var _poles = [];
-for (var _i = 0; _i < ds_list_size(_list); _i++) {
-	if (_i == 2) {
-		break;	
-	}
+if (instance_exists(_south_entrance)) {
+	var _pole = instance_place(x, y, obj_skii_lift_pole);
 	
-	array_push(_poles, _list[| _i]);
+	if (instance_exists(_pole)) {
+		_pole.south_entrance = _south_entrance;
+		_south_entrance.pole = _pole;
+	}
 }
 
-ds_list_destroy(_list);
+var _poles = instance_place_array(x, y, obj_skii_lift_pole);
 
 if (array_length(_poles) == 2) {
-	if (_poles[0].y < _poles[1].y) {
+	if (_poles[0].y > _poles[1].y) {
 		_poles = [_poles[1], _poles[0]];	
 	}
 	
-	_poles[0].next_pole = _poles[1];
-	_poles[1].previous_pole = _poles[0];
+	_poles[0].previous_pole = _poles[1];
+	_poles[1].next_pole = _poles[0];
+	_poles[1].next_pole = _poles[0];
 }
-
-instance_destroy();

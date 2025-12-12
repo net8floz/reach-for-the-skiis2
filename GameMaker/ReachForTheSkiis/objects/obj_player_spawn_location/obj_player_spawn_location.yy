@@ -32,5 +32,5 @@
     "path":"sprites/spr_player_spawn_sprite/spr_player_spawn_sprite.yy",
   },
   "spriteMaskId":null,
-  "visible":true,
+  "visible":false,
 }

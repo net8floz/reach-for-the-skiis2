@@ -37,10 +37,18 @@ function GameMode() constructor {
 	
 	handle_player_joined = function(_player_controller) {
 		log(log_category, "creating avatar for player");
-		var _avatar = instance_create_depth(0, 0, 0, obj_player);
+		var _sx = 0;
+		var _sy = 0;
+		
+		with (obj_player_spawn_location) {
+			_sx = x;
+			_sy = y;
+		}
+		
+		var _avatar = instance_create_depth(_sx, _sy, 0, obj_player);
 		_avatar.replication.network_owner_id = _player_controller.replication.network_id;
 		_player_controller.avatar = _avatar;
 		
 		global.world.register_network_object(_avatar);
 	}
-}
+}	

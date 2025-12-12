@@ -9,8 +9,8 @@
   "name":"obj_skii_lift_pole",
   "overriddenProperties":[],
   "parent":{
-    "name":"World",
-    "path":"folders/Rooms/World.yy",
+    "name":"SkiiLift",
+    "path":"folders/Rooms/World/SkiiLift.yy",
   },
   "parentObjectId":null,
   "persistent":false,
