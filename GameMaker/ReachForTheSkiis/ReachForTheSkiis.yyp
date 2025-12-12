@@ -39,7 +39,6 @@
     {"$GMIncludedFile":"","%Name":"regexp.ndll","CopyToMask":-1,"filePath":"datafiles/GMLive","name":"regexp.ndll","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"std.ndll","CopyToMask":-1,"filePath":"datafiles/GMLive","name":"std.ndll","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"zlib.ndll","CopyToMask":-1,"filePath":"datafiles/GMLive","name":"zlib.ndll","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
-    {"$GMIncludedFile":"","%Name":"skiiliftchair.aseprite","CopyToMask":-1,"filePath":"datafiles","name":"skiiliftchair.aseprite","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
   ],
   "isEcma":false,
   "LibraryEmitters":[],
