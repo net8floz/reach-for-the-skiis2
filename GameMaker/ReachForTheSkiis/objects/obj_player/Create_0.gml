@@ -17,6 +17,7 @@ move_y = 0; // direction input to move on y axis
 min_speed = 1;
 max_speed = 2;
 max_speed_z = 3;
+speed_walk = 1.5;
 speed_x = 0;
 speed_y = 0;
 speed_z = 0;
@@ -26,6 +27,20 @@ ground_friction = 0.01; // amount of friction applied by basic ground.
 ground_slope = 0; // amount of friction applied by basic ground.
 move_direction = 0;
 move_direction_target = 0;
+
+// State
+enum STATE
+{
+	ski,
+	wipeout,
+	burried,
+	walk,
+	last,
+}
+
+state = STATE.ski;
+ground_can_walk = false;
+
 
 
 // Sprite

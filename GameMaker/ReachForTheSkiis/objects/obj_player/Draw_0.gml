@@ -17,7 +17,7 @@ if (replication.controlled_proxy) {
 	draw_set_alpha(0.8)
 	var _color = merge_colour(c_red, c_green, _speed_mod)
 	draw_set_color(_color);
-	draw_line(x, y, mouse_x, mouse_y);
+	//draw_line(x, y, mouse_x, mouse_y);
 
 	draw_set_alpha(1);
 }
@@ -37,3 +37,5 @@ if (z > 0) {
 
 // DEBUG
 draw_text(x, y + 10, string(ground_friction));
+draw_text(x, y + 20, string(speed_y));
+draw_text(x, y + 30, string(speed_x));
