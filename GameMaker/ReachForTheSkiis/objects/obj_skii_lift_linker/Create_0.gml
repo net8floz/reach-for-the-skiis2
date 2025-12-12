@@ -1,11 +1,21 @@
 var _south_entrance = instance_place(x, y, obj_skii_lift_south_entrance);
+var _north_entrance = instance_place(x, y, obj_skii_lift_north_entrance);
 
 if (instance_exists(_south_entrance)) {
 	var _pole = instance_place(x, y, obj_skii_lift_pole);
 	
 	if (instance_exists(_pole)) {
 		_pole.south_entrance = _south_entrance;
-		_south_entrance.pole = _pole;
+		_south_entrance.next_pole = _pole;
+	}
+}
+
+if (instance_exists(_north_entrance)) {
+	var _pole = instance_place(x, y, obj_skii_lift_pole);
+	
+	if (instance_exists(_pole)) {
+		_pole.north_entrance = _north_entrance;
+		_north_entrance.next_pole = _pole;
 	}
 }
 
