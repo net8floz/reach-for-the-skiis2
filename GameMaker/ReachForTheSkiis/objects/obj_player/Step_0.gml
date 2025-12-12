@@ -1,6 +1,9 @@
 if (live_call()) return live_result;
 
-with ( GROUND ) other.ground_friction = ground_friction;
+with ( GROUND ) {
+	other.ground_friction = ground_friction;
+	other.ground_slope = ground_slope;
+}
 
 // - Get input state
 var _allow_input = replication.controlled_proxy && window_has_focus();
@@ -24,14 +27,14 @@ if (replication.controlled_proxy) {
 	// -- PHYSICS --
 	var _leaning_for_full_speed = (move_x == 0 && key_down);
 	var _travelling_up = move_y < 0;
-	var _max_speed = max_speed + (image_index == 0) + (image_index <= 1)/2 - _travelling_up;
+	var _max_speed = max_speed + (image_index == 0) + (image_index <= 1)/2 - _travelling_up + ground_slope;
 	
 	if ( move_x != 0 ) {
-		speed_x = lerp(speed_x, _max_speed*move_x, 0.06);
+		speed_x = lerp(speed_x, _max_speed*move_x, 0.06 + _leaning_for_full_speed*0.03);
 	}
 	
 	if ( move_y != 0 ) {
-		speed_y = lerp(speed_y, _max_speed*move_y, 0.06 + _leaning_for_full_speed*0.06);
+		speed_y = lerp(speed_y, _max_speed*move_y, 0.06 + _leaning_for_full_speed*0.03);
 	}
 	
 	

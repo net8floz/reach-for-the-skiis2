@@ -22,6 +22,7 @@ speed_y = 0;
 speed_z = 0;
 z = 0;
 ground_friction = 0.5; // amount of friction applied by basic ground.
+ground_slope = 0; // amount of friction applied by basic ground.
 
 
 // Sprite

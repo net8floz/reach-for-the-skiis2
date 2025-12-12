@@ -6,6 +6,7 @@
   "name":"obj_ground_sheer",
   "overriddenProperties":[
     {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"GROUND","path":"objects/GROUND/GROUND.yy",},"propertyId":{"name":"ground_friction","path":"objects/GROUND/GROUND.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"0.3",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"GROUND","path":"objects/GROUND/GROUND.yy",},"propertyId":{"name":"ground_slope","path":"objects/GROUND/GROUND.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"1",},
   ],
   "parent":{
     "name":"Ground",
