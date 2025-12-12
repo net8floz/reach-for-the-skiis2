@@ -27,7 +27,7 @@ if ( ground_can_walk && state == STATE.ski && speed_xy == 0 )
 {
 	state = STATE.walk;
 }
-else if ( ground_can_walk == false )
+else if ( ground_can_walk == false && state == STATE.walk )
 	state = STATE.ski;
 
 // SPRITE
