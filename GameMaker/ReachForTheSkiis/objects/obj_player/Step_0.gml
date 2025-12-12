@@ -1,26 +1,39 @@
 if (live_call()) return live_result;
 
+with ( GROUND ) other.ground_friction = ground_friction;
+
 // - Get input state
-var _allow_input = replication.controlled_proxy && window_has_focus() && mouse_check_button(mb_left);
+var _allow_input = replication.controlled_proxy && window_has_focus();
+
+if ( _allow_input )
+{
+	key_left = keyboard_check(ord("A")) || keyboard_check(vk_left);
+	key_right = keyboard_check(ord("D")) || keyboard_check(vk_right);
+	key_up = keyboard_check(ord("W")) || keyboard_check(vk_up);
+	key_down = keyboard_check(ord("S")) || keyboard_check(vk_down);
+	key_shift = keyboard_check(vk_lshift) || keyboard_check(vk_rshift);
+	key_space = keyboard_check(vk_space);
+	
+	move_x = ( key_right - key_left );
+	move_y = ( key_down - key_up );
+}
 
 // - Process Playerstate
 if (replication.controlled_proxy) {
 	
 	// -- PHYSICS --
-	var _leaning_for_full_speed = image_index==12;
-	var _travelling_up = mouse_y - y < 0;
+	var _leaning_for_full_speed = (move_x == 0 && key_down);
+	var _travelling_up = move_y < 0;
+	var _max_speed = max_speed + (image_index == 0) + (image_index <= 1)/2 - _travelling_up;
 	
-	var _mouse_direction = point_direction(x, y, mouse_x, mouse_y);
-	var _dist_from_mouse = _allow_input ? point_distance(x, y, mouse_x, mouse_y) : 0;
-	var _speed_mod = clamp(_dist_from_mouse / 300, 0, 1);
-
-	speed_x += lengthdir_x(_speed_mod, _mouse_direction);
-	speed_y += lengthdir_y(_speed_mod, _mouse_direction);
-
-	speed_x = clamp(speed_x, -max_speed, max_speed);
-	speed_y = clamp(speed_y, -max_speed, max_speed);
+	if ( move_x != 0 ) {
+		speed_x = lerp(speed_x, _max_speed*move_x, 0.06);
+	}
 	
-	facing_direction = floor(point_direction(x, y, x + speed_x, y + speed_y) / ( 360 / 16 ));
+	if ( move_y != 0 ) {
+		speed_y = lerp(speed_y, _max_speed*move_y, 0.06 + _leaning_for_full_speed*0.06);
+	}
+	
 	
 	if (z <= 0) {
 		if (keyboard_check(vk_space) && window_has_focus()) {
@@ -38,7 +51,7 @@ if (replication.controlled_proxy) {
 	}
 
 	var _on_ground = ( z == 0 );
-	var _friction = ground_friction * _on_ground;
+	var _friction = ground_friction * _on_ground * 0.1;
 	speed_x = approach(speed_x, 0, _friction);
 	speed_y = approach(speed_y, 0, _friction);
 	speed_z -= 0.1;
@@ -68,6 +81,9 @@ if (replication.controlled_proxy) {
 }
 
 // SPRITE
+if ( move_x != 0 || move_y != 0 )
+	facing_direction = floor(point_direction(x, y, x+move_x, y+move_y) / ( 360 / 16 ));
+	
 switch(facing_direction) {
 	case 4:
 	case 5:
@@ -110,7 +126,7 @@ switch(facing_direction) {
 	
 // -- create a track in the snow.
 var _on_ground = ( z == 0 );
-if ( _on_ground )
+if ( _on_ground && (y != yprevious || x != xprevious) )
 {
 	layer_sprite_create("Tracks", bbox_left, bbox_bottom, spr_particle_track);
 	layer_sprite_create("Tracks", bbox_right, bbox_bottom, spr_particle_track);
@@ -121,4 +137,3 @@ if (z > 0) {
 	image_xscale = 1;
 	image_index = 3;
 }
-

@@ -2,9 +2,20 @@ if (live_call()) return live_result;
 
 // ---- Locals ----
 
+// Input
+key_left = false;
+key_right = false;
+key_up = false;
+key_down = false;
+key_shift = false;
+key_space = false;
+
+move_x = 0; // direction input to move on x axis
+move_y = 0; // direction input to move on y axis
+
 // Physics
 min_speed = 1;
-max_speed = 3;
+max_speed = 2;
 max_speed_z = 3;
 speed_x = 0;
 speed_y = 0;
