@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"calculate_instance_scene_depth",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"calculate_instance_scene_depth",
+  "parent":{
+    "name":"Util",
+    "path":"folders/Util.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

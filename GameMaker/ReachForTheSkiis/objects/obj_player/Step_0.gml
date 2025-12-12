@@ -225,3 +225,5 @@ if (z > 0) {
 	image_xscale = 1;
 	image_index = 3;
 }
+
+depth = calculate_instance_scene_depth(id);

@@ -125,3 +125,5 @@ switch (current_state) {
 		
 		break;
 }
+
+depth = -9999;

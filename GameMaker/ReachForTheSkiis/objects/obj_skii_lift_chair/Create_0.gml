@@ -43,7 +43,6 @@ replication.add_variable("y", method(id, function() { return round(y); }), metho
 	if (server_y == undefined) {
 		y = _y;	
 	}
-	
 	server_y = _y;
 	
 	var _dy = server_y - y;
@@ -63,7 +62,6 @@ if (instance_exists(_linker)) {
 			if (_poles[0].y > _poles[1].y) {
 				_poles = [_poles[1], _poles[0]];	
 			}
-			
 			
 			other.next_pole = other.current_state == EChairState.HeadedNorth ? _poles[0] : _poles[1];
 			other.x = other.next_pole.x + (other.current_state == EChairState.HeadedNorth ? other.next_pole.line_anchor_north : other.next_pole.line_anchor_south);

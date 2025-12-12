@@ -1,20 +1,18 @@
 {
   "$GMObject":"",
-  "%Name":"obj_tree",
+  "%Name":"obj_skii_lift_line_renderer",
   "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_tree",
+  "name":"obj_skii_lift_line_renderer",
   "overriddenProperties":[],
   "parent":{
-    "name":"World",
-    "path":"folders/Rooms/World.yy",
+    "name":"SkiiLift",
+    "path":"folders/Rooms/World/SkiiLift.yy",
   },
-  "parentObjectId":{
-    "name":"OBSTA",
-    "path":"objects/OBSTA/OBSTA.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -32,10 +30,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_tree",
-    "path":"sprites/spr_tree/spr_tree.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }
