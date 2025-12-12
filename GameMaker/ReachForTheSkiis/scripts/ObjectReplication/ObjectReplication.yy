@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"Replicaiton",
+  "%Name":"ObjectReplication",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"Replicaiton",
+  "name":"ObjectReplication",
   "parent":{
     "name":"Network",
     "path":"folders/Network.yy",

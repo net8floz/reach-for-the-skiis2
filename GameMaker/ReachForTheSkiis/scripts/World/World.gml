@@ -8,6 +8,8 @@ function World() constructor {
 	local_player_controller = noone;
 	
 	function spawn_replicated_object(_data) {
+		assert(objects_lookup[$ _data.network_id] == undefined);
+					
 		var _inst = noone;
 			
 		if (_data.struct_name != undefined) {
@@ -17,7 +19,7 @@ function World() constructor {
 				
 			_inst = _replicated_struct_map[$ _data.struct_name]();
 		} else {
-			_inst = instance_create_depth(0, 0, 0, _data.object_index);	
+			_inst = instance_create_depth(_data.state.x, _data.state.y, 0, _data.object_index);	
 		}
 			
 		_inst.replication.network_id = _data.network_id;
@@ -47,6 +49,15 @@ function World() constructor {
 				_inst.replication.update_replicated_variables(_data.state);	
 			}
 		}));
+		
+		with (all) {
+			if (variable_instance_exists(id, "replication")) {
+				if (other.objects_lookup[$ id.replication.network_id] == undefined) {
+					// must assume that this is a scene placed item
+					other.register_network_object(id, true);
+				}
+			}
+		}
 	}
 	
 	function register_client(_client) {
@@ -84,33 +95,66 @@ function World() constructor {
 				}
 			}
 		}));
-	}
-	
-	function register_network_object(_instance) {
-		_instance.replication.network_id = network_id_counter;
-		network_id_counter++;
 		
-		objects_lookup[$ _instance.replication.network_id] = _instance;
-		array_push(objects, _instance);
-		
-		_instance.replication.replicated_proxy = true;
-						
-		if (is_struct(local_player_controller)) {
-			if (local_player_controller.replication.network_id == _instance.replication.network_owner_id) {
-				_instance.replication.replicated_proxy = false;
-				_instance.replication.controlled_proxy = true;
+		with (all) {
+			if (variable_instance_exists(id, "replication")) {
+				if (other.objects_lookup[$ id.replication.network_id] == undefined) {
+					// must assume that this is a scene placed item
+					
+					other.register_network_object(id, true);
+				}
 			}
 		}
-		
-		server.broadcast_to_clients("world-replication-sync", [{
-			struct_name: is_struct(_instance) ? instanceof(_instance) : undefined,
-			object_index: is_struct(_instance) ? undefined : _instance.object_index,
-			network_id: _instance.replication.network_id,
-			network_owner_id: _instance.replication.network_owner_id,
-			alive: true,
-			state: _instance.replication.calculate_current_state()
-		}]);
 	}
+	
+	function register_network_object(_instance, _use_scene_id) {
+		
+		if (is_struct(server)) {
+			assert(objects_lookup[$ _instance.replication.network_id] == undefined);
+			
+			if (_use_scene_id) {
+				_instance.replication.network_id = _instance.replication.scene_network_id;
+				_instance.replication.replicated_proxy = false;
+				_instance.replication.controlled_proxy = true;
+			} else {
+				_instance.replication.network_id = network_id_counter;
+				network_id_counter++;
+			}
+		
+			objects_lookup[$ _instance.replication.network_id] = _instance;
+			array_push(objects, _instance);
+		
+			_instance.replication.replicated_proxy = true;
+						
+			if (is_struct(local_player_controller)) {
+				if (local_player_controller.replication.network_id == _instance.replication.network_owner_id) {
+					_instance.replication.replicated_proxy = false;
+					_instance.replication.controlled_proxy = true;
+				}
+			}
+		
+			server.broadcast_to_clients("world-replication-sync", [{
+				struct_name: is_struct(_instance) ? instanceof(_instance) : undefined,
+				object_index: is_struct(_instance) ? undefined : _instance.object_index,
+				network_id: _instance.replication.network_id,
+				network_owner_id: _instance.replication.network_owner_id,
+				alive: true,
+				state: _instance.replication.calculate_current_state()
+			}]);
+		} else if (is_struct(client)) {
+			assert(_use_scene_id);
+			
+			if (objects_lookup[$ _instance.replication.network_id] == undefined) {
+				_instance.replication.network_id = _instance.replication.scene_network_id;
+				_instance.replication.replicated_proxy = true;
+				_instance.replication.controlled_proxy = false;
+				
+				objects_lookup[$ _instance.replication.network_id] = _instance;
+				
+				array_push(objects, _instance);
+			}
+		}
+	}	
 	
 	function send_assign_player_controller(_client, _network_id) {
 		_client.enqueue_message("assign-player-controller", _network_id);

@@ -6,8 +6,8 @@
   "name":"obj_tree",
   "overriddenProperties":[],
   "parent":{
-    "name":"Game",
-    "path":"folders/Game.yy",
+    "name":"World",
+    "path":"folders/Rooms/World.yy",
   },
   "parentObjectId":{
     "name":"OBSTA",

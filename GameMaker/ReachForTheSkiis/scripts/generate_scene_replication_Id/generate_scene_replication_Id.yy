@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"generate_scene_replication_Id",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"generate_scene_replication_Id",
+  "parent":{
+    "name":"Util",
+    "path":"folders/Util.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

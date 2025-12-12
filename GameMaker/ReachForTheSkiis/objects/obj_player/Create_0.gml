@@ -50,7 +50,7 @@ facing_direction = 0
 owning_controller = noone;
 
 // ---- Network ----
-replication = new ObjectReplication();
+replication = new ObjectReplication(id);
 
 name = "";
 

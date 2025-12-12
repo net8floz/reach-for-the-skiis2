@@ -1,8 +1,13 @@
-function ObjectReplication() constructor {
+function ObjectReplication(_inst) constructor {
 	network_id = noone;
 	network_owner_id = noone;
 	replicated_proxy = false;
 	controlled_proxy = false;
+	scene_network_id = "";
+	
+	if (!is_struct(_inst)) {
+		with _inst other.scene_network_id = $"{object_get_name(object_index)}{xstart}{ystart}";
+	}
 	
 	getters = [];
 	setters = {};
