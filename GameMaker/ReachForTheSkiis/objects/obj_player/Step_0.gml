@@ -170,7 +170,7 @@ if (replication.controlled_proxy) {
 
 		// - ski jump
 		if (z <= 0 && state != STATE.wipeout) {
-			if (keyboard_check(vk_space) && window_has_focus()) {
+			if (key_space) {
 				speed_z = 1+abs(speed_xy)/3;
 				if ( state == STATE.burried ) state = STATE.ski;
 			}
@@ -193,14 +193,14 @@ if (replication.controlled_proxy) {
 			}
 		}
 	}
-	else
+	else if ( state == STATE.walk )
 	{
 		speed_x = approach(speed_x, speed_walk*move_x, 0.45);
 		speed_y = approach(speed_y, speed_walk*move_y, 0.45);
 
 		// - jump
 		if ( z <= 0 ) {
-			if (keyboard_check(vk_space) && window_has_focus()) {
+			if (key_space) {
 				speed_z = 2;
 			}
 		}
