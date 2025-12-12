@@ -10,7 +10,7 @@ enum EChairState {
 current_state = EChairState.HeadedNorth;
 next_pole = noone;
 entrance = noone;
-spd = 1;
+spd = 2;
 image_speed = 0;
 
 IMAGE_INDEX_SOUTH = 0;

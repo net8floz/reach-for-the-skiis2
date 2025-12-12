@@ -29,6 +29,39 @@ if ( ground_can_walk && state == STATE.ski && speed_xy == 0 )
 }
 else if ( ground_can_walk == false && state == STATE.walk )
 	state = STATE.ski;
+	
+// - enter lift state
+if ( state == STATE.ski || state == STATE.walk )
+{
+	with ( instance_place( x, y, obj_skii_lift_chair ) )
+	{
+		if ( accepting_passengers )
+		{
+			other.state = STATE.lifting;
+			other.chair_riding = self;
+			other.chair_entrance = entrance;
+		}
+	}
+}
+
+if ( state == STATE.lifting )
+{
+	if ( instance_exists(chair_riding) )
+	{
+		speed_x = 0;
+		speed_y = 0;
+		speed_xy = 0;
+		x = chair_riding.x;
+		y = chair_riding.y;
+		
+		//if ( chair_riding.entrance != chair_entrance ) then state = STATE.walk;
+	}
+	else
+	{
+		state = STATE.walk;
+		chair_riding = noone;
+	}
+}
 
 // SPRITE
 if ( state == STATE.walk )
@@ -222,7 +255,7 @@ if (replication.controlled_proxy) {
 	
 // -- create a track in the snow.
 var _on_ground = ( z == 0 );
-if ( _on_ground && (y != yprevious || x != xprevious) )
+if ( _on_ground && (y != yprevious || x != xprevious) && state == STATE.ski )
 {
 	layer_sprite_create("Tracks", bbox_left, bbox_bottom, spr_particle_track);
 	layer_sprite_create("Tracks", bbox_right, bbox_bottom, spr_particle_track);

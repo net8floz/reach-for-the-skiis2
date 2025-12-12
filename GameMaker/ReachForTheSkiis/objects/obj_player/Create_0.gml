@@ -35,12 +35,14 @@ enum STATE
 	wipeout,
 	burried,
 	walk,
+	lifting,
 	last,
 }
 
 state = STATE.ski;
 ground_can_walk = false;
-
+chair_riding = noone;
+chair_entrance = noone;
 
 
 // Sprite
@@ -73,6 +75,11 @@ replication.add_variable("z", method(id, function() { return round(z); }), metho
 replication.add_variable("name", method(id, function() { return name; }), method(id, function(_name) { 
 	name = _name;
 }));
+
+replication.add_variable("state", method(id, function() { return state; }), method(id, function(_state) { 
+	state = _state;
+}));
+
 
 replication.add_variable("facing_direction", method(id, function() { return facing_direction; }), method(id, function(_facing_direction) {
 	if (replication.replicated_proxy) {
