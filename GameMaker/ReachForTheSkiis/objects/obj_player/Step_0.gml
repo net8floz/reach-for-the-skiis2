@@ -1,4 +1,3 @@
-///@description Process Playerstate
 if (live_call()) return live_result;
 
 // - Get input state
