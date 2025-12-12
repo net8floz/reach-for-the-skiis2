@@ -68,6 +68,7 @@ if ( state == STATE.walk )
 {
 	sprite_index = spr_player_walk;
 	image_index += speed_x/10;
+	image_angle = lerp(image_angle, 0, 0.2);
 	if ( speed_x != 0 ) image_xscale = sign(speed_x);
 }
 else if ( state == STATE.ski )
