@@ -32,6 +32,8 @@ move_direction_target = 0;
 image_speed = 0;
 facing_direction = 0
 
+owning_controller = noone;
+
 // ---- Network ----
 replication = new ObjectReplication();
 

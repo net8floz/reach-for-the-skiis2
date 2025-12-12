@@ -52,6 +52,7 @@
     {"id":{"name":"GROUND","path":"objects/GROUND/GROUND.yy",},},
     {"id":{"name":"obj_debug_world_grid","path":"objects/obj_debug_world_grid/obj_debug_world_grid.yy",},},
     {"id":{"name":"obj_display","path":"objects/obj_display/obj_display.yy",},},
+    {"id":{"name":"obj_freecam","path":"objects/obj_freecam/obj_freecam.yy",},},
     {"id":{"name":"obj_gmlive","path":"objects/obj_gmlive/obj_gmlive.yy",},},
     {"id":{"name":"obj_ground_cliff","path":"objects/obj_ground_cliff/obj_ground_cliff.yy",},},
     {"id":{"name":"obj_ground_ice","path":"objects/obj_ground_ice/obj_ground_ice.yy",},},

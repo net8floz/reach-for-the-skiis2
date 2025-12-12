@@ -6,7 +6,7 @@ with ( instance_position(x, y, GROUND) ) {
 }
 
 // - Get input state
-var _allow_input = replication.controlled_proxy && window_has_focus();
+var _allow_input = is_struct(owning_controller) && replication.controlled_proxy && window_has_focus();
 
 if ( _allow_input )
 {
@@ -119,9 +119,10 @@ if (replication.controlled_proxy) {
 	
 	
 	// CONTROL CAMERA
-	var _camera = view_camera[0];
-	camera_set_view_pos(_camera, x - camera_get_view_width(_camera) / 2, y - camera_get_view_height(_camera) / 2 + 100);
-	
+	if (is_struct(owning_controller)) {
+		var _camera = view_camera[0];
+		camera_set_view_pos(_camera, x - camera_get_view_width(_camera) / 2, y - camera_get_view_height(_camera) / 2 + 100);
+	}
 	
 } else if (replication.replicated_proxy) {
 	

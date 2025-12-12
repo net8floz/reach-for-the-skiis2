@@ -29,6 +29,7 @@ function World() constructor {
 			if (local_player_controller.replication.network_id == _inst.replication.network_owner_id) {
 				_inst.replication.replicated_proxy = false;
 				_inst.replication.controlled_proxy = true;
+				_inst.owning_controller = local_player_controller;
 			}
 		}
 		

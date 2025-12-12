@@ -48,6 +48,7 @@ function GameMode() constructor {
 		var _avatar = instance_create_depth(_sx, _sy, 0, obj_player);
 		_avatar.replication.network_owner_id = _player_controller.replication.network_id;
 		_player_controller.avatar = _avatar;
+		_avatar.owning_controller = _player_controller;
 		
 		global.world.register_network_object(_avatar);
 	}
