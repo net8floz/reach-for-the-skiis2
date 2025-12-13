@@ -1,12 +1,16 @@
+if (live_call()) return live_result;
 accepting_passengers = false;
 
 switch (current_state) {
 	case EChairState.HeadedNorth:
 	case EChairState.HeadedSouth:
-		var _target_x = next_pole.x + (current_state == EChairState.HeadedNorth ? next_pole.line_anchor_north : next_pole.line_anchor_south);
-		var _target_y = next_pole.y;
-		var _dx = _target_x - x;
-		var _dy = _target_y - y;
+		target_x = next_pole.x + (current_state == EChairState.HeadedNorth ? next_pole.line_anchor_north : next_pole.line_anchor_south);
+		target_y = next_pole.y + pole_height;
+		target_z = pole_height;
+		
+		var _dx = target_x - x;
+		var _dy = target_y - y;
+		var _dist_squared = _dx * _dx + _dy * _dy;
 		var _a = point_direction(0, 0, _dx, _dy);
 		
 		image_index = current_state == EChairState.HeadedNorth 
@@ -16,9 +20,12 @@ switch (current_state) {
 		x += lengthdir_x(spd, _a);
 		y += lengthdir_y(spd, _a);
 		
-		if (_dx * _dx + _dy * _dy < 2) {
-			x = _target_x;
-			y = _target_y;
+		if (_dist_squared <= spd * spd) {
+			x = target_x;
+			y = target_y;
+			last_target_x = target_x;
+			last_target_y = target_y;
+			last_target_z = target_z;
 			
 			if (current_state == EChairState.HeadedNorth) {
 				if (instance_exists(next_pole.north_entrance)) {
@@ -44,19 +51,24 @@ switch (current_state) {
 		break;
 	case EChairState.HeadedToSouthEntrance:
 	case EChairState.HeadedToNorthEntrance:
-		var _target_x = entrance.x + (current_state == EChairState.HeadedToNorthEntrance ? next_pole.line_anchor_north : next_pole.line_anchor_south);
-		var _target_y = entrance.y + (current_state == EChairState.HeadedToNorthEntrance ? 10 : 0);
-		
-		var _dx = _target_x - x;
-		var _dy = _target_y - y;
+		target_x = entrance.x + (current_state == EChairState.HeadedToNorthEntrance ? next_pole.line_anchor_north : next_pole.line_anchor_south);
+		target_y = entrance.y + (current_state == EChairState.HeadedToNorthEntrance ? 10 : 0);
+		target_z = entrance_height;
+
+		var _dx = target_x - x;
+		var _dy = target_y - y;
+		var _dist_squared = _dx * _dx + _dy * _dy;
 		var _a = point_direction(0, 0, _dx, _dy);
 		
 		x += lengthdir_x(spd, _a);
 		y += lengthdir_y(spd, _a);
 		
-		if (_dx * _dx + _dy * _dy < 2) {
-			x = _target_x;
-			y = _target_y;
+		if (_dist_squared <= spd * spd) {
+			x = target_x;
+			y = target_y;
+			last_target_x = x;
+			last_target_y = y;
+			last_target_z = target_z;
 			
 			if (current_state == EChairState.HeadedToNorthEntrance) {
 				current_state = EChairState.FollowingNorthEntrance;
@@ -68,7 +80,6 @@ switch (current_state) {
 		break;
 	case EChairState.FollowingSouthEntrance:
 	case EChairState.FollowingNorthEntrance:
-		
 		var _x_dir = 1;
 		var _y_position = entrance.y;
 		var _curve_height = 15;
@@ -80,6 +91,7 @@ switch (current_state) {
 		}
 		
 		x += spd * 0.7 * _x_dir;
+		z = entrance_height;
 		
 		var _t = clamp((x - entrance.x) / entrance.sprite_width, 0, 1);
 		var _w = sin(_t * pi);	
@@ -102,6 +114,13 @@ switch (current_state) {
 		
 		// _x_dir happens to be the right direction for y also
 		y = _y_position + _w * _curve_height * _x_dir;
+		
+		target_x = x;
+		target_y = y;
+		target_z = z;
+		last_target_x = x;
+		last_target_y = y;
+		last_target_z = z;
 		
 		var _arrived_at_destination = current_state == EChairState.FollowingSouthEntrance
 			? x >= entrance.x + entrance.sprite_width
@@ -126,4 +145,15 @@ switch (current_state) {
 		break;
 }
 
+if (z != target_z) {
+	var _total_distance = point_distance(target_x, target_y, last_target_x, last_target_y);
+	var _current_distance = point_distance(x, y, target_x, target_y);
+		
+	if (_total_distance == 0) {
+		z = target_z;
+	} else {
+		z = lerp(target_z, last_target_z, _current_distance / _total_distance);
+	}
+}
+		
 depth = -9999;

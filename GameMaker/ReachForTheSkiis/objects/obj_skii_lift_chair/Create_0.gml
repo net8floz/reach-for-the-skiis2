@@ -13,6 +13,9 @@ entrance = noone;
 spd = 2;
 image_speed = 0;
 
+pole_height = sprite_get_height(spr_liftpole);
+entrance_height = 0;
+
 IMAGE_INDEX_SOUTH = 0;
 IMAGE_INDEX_NORTH = 1;
 IMAGE_INDEX_EAST = 2;
@@ -50,7 +53,13 @@ replication.add_variable("y", method(id, function() { return round(y); }), metho
 }));
 
 replication.add_variable("z", method(id, function() { return round(z); }), method(id, function(_z) { 
+	if (server_z == undefined) {
+		z = _z;	
+	}
 	server_z = _z;
+	
+	var _dz = server_z - z;
+	z += _dz * 0.5;
 }));
 
 var _linker = instance_place(x, y, obj_skii_lift_linker);
@@ -69,3 +78,13 @@ if (instance_exists(_linker)) {
 		}
 	}
 }
+
+target_x = x;
+target_y = y;
+target_z = z;
+last_target_x = x;
+last_target_y = y;
+last_target_z = z;
+
+shadow = instance_create_depth(x, y, depth, obj_skii_lift_chair_shadow);
+shadow.chair = id;
