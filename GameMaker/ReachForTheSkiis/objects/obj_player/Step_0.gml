@@ -52,7 +52,8 @@ if ( state == STATE.lifting )
 		speed_y = 0;
 		speed_xy = 0;
 		x = chair_riding.x;
-		y = chair_riding.y;
+		y = chair_riding.y + chair_riding.sprite_height;
+		z = chair_riding.z;
 		
 		//if ( chair_riding.entrance != chair_entrance ) then state = STATE.walk;
 	}
@@ -206,9 +207,16 @@ if (replication.controlled_proxy) {
 		}
 	}
 	
+	if (state == STATE.lifting) {
+		speed_z = 0;	
+		speed_x = 0;
+		speed_y = 0;
+	}
+	
 	x += speed_x;
 	y += speed_y;
 	z += speed_z;
+
 	
 	if (z <= 0) {
 		speed_z = 0;	
