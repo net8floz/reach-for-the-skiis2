@@ -16,7 +16,9 @@ handle_awake = function() {
 	var _poles = []
 	
 	with (obj_skii_lift_pole) {
-		array_push(_poles, [id, y]);	
+		if (system_group == other.system_group) {
+			array_push(_poles, [id, y]);	
+		}
 	}
 	
 	array_sort(_poles, function(_a, _b) {
@@ -31,14 +33,19 @@ handle_awake = function() {
 		_poles[_i][0].previous_pole = _poles[_i -1][0];
 	}
 	
-	var _last = _poles[array_length(_poles) - 1][0];
+	var _north_entrance = noone;
+	with (obj_skii_lift_north_entrance) {
+		if (system_group == other.system_group) {
+			_north_entrance = id;
+			break;
+		}
+	}
 	
+	var _last = _poles[array_length(_poles) - 1][0];
 
-	var _north_entrance = instance_nearest(_last.x, _last.y, obj_skii_lift_north_entrance);
-	if (instance_exists(_north_entrance)) {
-		_last.north_entrance = _north_entrance;
-		_north_entrance.next_pole = _last;
-	}	
+	_last.north_entrance = _north_entrance;
+	_north_entrance.next_pole = _last;
+	
 
 	static IMAGE_INDEX_SOUTH = 0;
 	static IMAGE_INDEX_NORTH = 1;
@@ -117,7 +124,7 @@ handle_awake = function() {
 	while (instance_exists(_current)) {
 		
 
-		if (_current.object_index == obj_skii_lift_pole) {
+		if (object_is_a(_current, obj_skii_lift_pole)) {
 			
 			var _target;
 			
@@ -158,7 +165,7 @@ handle_awake = function() {
 				_current = noone;	
 			}
 			
-		} else if ((_current.object_index == obj_skii_lift_south_entrance && _headed_north) || _current.object_index == obj_skii_lift_north_entrance && !_headed_north) {
+		} else if ((object_is_a(_current, obj_skii_lift_south_entrance) && _headed_north) || (object_is_a(_current, obj_skii_lift_north_entrance) && !_headed_north)) {
 			
 				var _target_x = _current.next_pole.x + (_headed_north ? _current.next_pole.line_offset_north_x : _current.next_pole.line_offset_south_x);
 				var _target_y = _current.next_pole.y;
@@ -178,7 +185,7 @@ handle_awake = function() {
 				
 				_current = _current.next_pole;
 			
-		} else if ((_current.object_index == obj_skii_lift_south_entrance && !_headed_north) || _current.object_index == obj_skii_lift_north_entrance && _headed_north) {
+		} else if ((object_is_a(_current, obj_skii_lift_south_entrance) && !_headed_north) || (object_is_a(_current, obj_skii_lift_north_entrance) && _headed_north)) {
 			var _target_x = _current.x + (!_headed_north ? _current.line_offset_north_x : _current.line_offset_south_x);
 			var _target_y = _current.y;
 			var _target_z = _current.line_z;

@@ -30,13 +30,15 @@
   "physicsShape":1,
   "physicsShapePoints":[],
   "physicsStartAwake":true,
-  "properties":[],
+  "properties":[
+    {"$GMObjectProperty":"v2","%Name":"system_group","filters":[],"listItems":[],"multiselect":false,"name":"system_group","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"group_a","varType":2,},
+  ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_skii_lift_south_entrance",
-    "path":"sprites/spr_skii_lift_south_entrance/spr_skii_lift_south_entrance.yy",
+    "name":"spr_skii_lift_south_entrance_a",
+    "path":"sprites/spr_skii_lift_south_entrance_a/spr_skii_lift_south_entrance_a.yy",
   },
   "spriteMaskId":null,
   "visible":true,

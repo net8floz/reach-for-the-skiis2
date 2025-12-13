@@ -25,13 +25,15 @@
   "physicsShape":1,
   "physicsShapePoints":[],
   "physicsStartAwake":true,
-  "properties":[],
+  "properties":[
+    {"$GMObjectProperty":"v2","%Name":"system_group","filters":[],"listItems":[],"multiselect":false,"name":"system_group","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"group_a","varType":2,},
+  ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_liftpole",
-    "path":"sprites/spr_liftpole/spr_liftpole.yy",
+    "name":"spr_liftpole_a",
+    "path":"sprites/spr_liftpole_a/spr_liftpole_a.yy",
   },
   "spriteMaskId":null,
   "visible":true,
