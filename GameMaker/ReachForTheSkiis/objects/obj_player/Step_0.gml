@@ -55,7 +55,11 @@ if ( state == STATE.lifting )
 		y = chair_riding.y + chair_riding.sprite_height;
 		z = chair_riding.z;
 		
-		//if ( chair_riding.entrance != chair_entrance ) then state = STATE.walk;
+		if ( key_space )
+		{
+			state = STATE.walk;
+			if ( z > 3 ) then state = STATE.wipeout;
+		}
 	}
 	else
 	{

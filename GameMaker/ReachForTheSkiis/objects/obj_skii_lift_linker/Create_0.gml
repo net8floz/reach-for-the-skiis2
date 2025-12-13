@@ -30,3 +30,6 @@ if (array_length(_poles) == 2) {
 	_poles[1].next_pole = _poles[0];
 	_poles[1].next_pole = _poles[0];
 }
+
+instance_create_depth(x, y, depth, obj_skii_lift_chair);
+alarm[0] = 2;
