@@ -7,6 +7,8 @@ function World() constructor {
 	server = noone;
 	local_player_controller = noone;
 	
+	scene_is_awake = false;
+	
 	function spawn_replicated_object(_data) {
 		assert(objects_lookup[$ _data.network_id] == undefined);
 					
@@ -58,6 +60,37 @@ function World() constructor {
 				}
 			}
 		}
+		
+		assert(!scene_is_awake);
+		awaken_world();
+		
+	}
+	
+	function awaken_world() {
+		scene_is_awake = true;
+		
+		while(true) {
+			var _no_change = true;
+			
+			with (all) {
+				if (variable_instance_exists(id, "handle_awake")) {
+					if (variable_instance_exists(id, "did_handle_awake")) {
+						if (id.did_handle_awake) {
+							continue;	
+						}
+					}
+					
+					handle_awake();
+					did_handle_awake = true;
+					_no_change = false;
+				}
+			}
+			
+			if (_no_change) {
+				break;	
+			}
+		}
+			
 	}
 	
 	function register_client(_client) {
@@ -96,6 +129,7 @@ function World() constructor {
 			}
 		}));
 		
+		
 		with (all) {
 			if (variable_instance_exists(id, "replication")) {
 				if (other.objects_lookup[$ id.replication.network_id] == undefined) {
@@ -104,6 +138,10 @@ function World() constructor {
 					other.register_network_object(id, true);
 				}
 			}
+		}
+		
+		if (!scene_is_awake) {
+			awaken_world();	
 		}
 	}
 	
