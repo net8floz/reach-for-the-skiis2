@@ -74,18 +74,15 @@ shadow = instance_create_depth(x, y, depth, obj_skii_lift_chair_shadow);
 shadow.chair = id;
 
 handle_awake = function() {
-	var _linker = instance_nearest(x, y, obj_skii_lift_linker);
-
-	with (_linker) {
-		var _poles = instance_place_array(x, y, obj_skii_lift_pole);
-		if (array_length(_poles) == 2) {
-			if (_poles[0].y > _poles[1].y) {
-				_poles = [_poles[1], _poles[0]];	
-			}
-			
-			other.next_pole = other.current_state == EChairState.HeadedNorth ? _poles[0] : _poles[1];
-			other.x = other.next_pole.x + (other.current_state == EChairState.HeadedNorth ? other.next_pole.line_anchor_north : other.next_pole.line_anchor_south);
-			other.y = other.next_pole.y;
-		}
-	}
+	next_pole = instance_nearest(x, y, obj_skii_lift_pole);
+	x = next_pole.x + (current_state == EChairState.HeadedNorth ? next_pole.line_anchor_north : next_pole.line_anchor_south);
+	y = next_pole.y;
+	z = pole_height;
+	
+	target_x = x;
+	target_y = y;
+	target_z = z;
+	last_target_x = x;
+	last_target_y = y;
+	last_target_z = z;
 }

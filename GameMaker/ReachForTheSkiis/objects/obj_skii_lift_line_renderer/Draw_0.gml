@@ -1,3 +1,5 @@
+draw_set_color(c_black);
+
 with (obj_skii_lift_pole) {
 	if (next_pole != noone) {
 		for (var _i = 0; _i < 4; _i++) {
