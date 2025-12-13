@@ -36,6 +36,6 @@ if (z > 0) {
 
 
 // DEBUG
-draw_text(x, y + 10, string(ground_friction));
-draw_text(x, y + 20, string(speed_y));
-draw_text(x, y + 30, string(speed_x));
+//draw_text(x, y + 10, string(ground_friction));
+//draw_text(x, y + 20, string(speed_y));
+//draw_text(x, y + 30, string(speed_x));

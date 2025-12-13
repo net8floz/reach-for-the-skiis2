@@ -1,5 +1,5 @@
 if (live_call()) return live_result;
-
+ 
 with ( instance_position(x, y, GROUND) ) {
 	other.ground_friction = ground_friction;
 	other.ground_slope = ground_slope;
@@ -20,6 +20,15 @@ if ( _allow_input )
 	
 	move_x = ( key_right - key_left );
 	move_y = ( key_down - key_up );
+} else {
+	move_x = 0;
+	move_y = 0;
+	key_left = 0;
+	key_right = 0;
+	key_down = 0;
+	key_up = 0;
+	key_shift = 0;
+	key_space = 0;
 }
 
 // - Ski to Walk
@@ -39,7 +48,7 @@ if ( state == STATE.ski || state == STATE.walk )
 		{
 			other.state = STATE.lifting;
 			other.chair_riding = self;
-			other.chair_entrance = entrance;
+			other.chair_entrance = instance_nearest(x, y, obj_skii_lift_entrance);
 		}
 	}
 }
@@ -52,7 +61,7 @@ if ( state == STATE.lifting )
 		speed_y = 0;
 		speed_xy = 0;
 		x = chair_riding.x;
-		y = chair_riding.y + chair_riding.sprite_height;
+		y = chair_riding.y + chair_riding.z + chair_riding.sprite_height;
 		z = chair_riding.z;
 		
 		if ( key_space )
@@ -245,7 +254,15 @@ if (replication.controlled_proxy) {
 	// CONTROL CAMERA
 	if (is_struct(owning_controller)) {
 		var _camera = view_camera[0];
-		camera_set_view_pos(_camera, x - camera_get_view_width(_camera) / 2, y - z - camera_get_view_height(_camera) / 2 + 100);
+		
+		var _offset = 100;
+		
+		if (state == STATE.lifting) {
+			_offset = 0;
+		}
+		
+		camera_set_view_pos(_camera, x - camera_get_view_width(_camera) / 2, y - z - camera_get_view_height(_camera) / 2 + _offset);
+		
 	}
 	
 } else if (replication.replicated_proxy) {

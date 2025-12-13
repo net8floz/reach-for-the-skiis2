@@ -1,20 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"obj_skii_lift_north_entrance",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "%Name":"obj_skii_lift_entrance",
+  "eventList":[],
   "managed":true,
-  "name":"obj_skii_lift_north_entrance",
+  "name":"obj_skii_lift_entrance",
   "overriddenProperties":[],
   "parent":{
     "name":"SkiiLift",
     "path":"folders/Rooms/World/SkiiLift.yy",
   },
-  "parentObjectId":{
-    "name":"obj_skii_lift_entrance",
-    "path":"objects/obj_skii_lift_entrance/obj_skii_lift_entrance.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -32,10 +27,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_skii_lift_north_entrance",
-    "path":"sprites/spr_skii_lift_north_entrance/spr_skii_lift_north_entrance.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

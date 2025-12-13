@@ -3,6 +3,8 @@
   "%Name":"obj_skii_lift_south_entrance",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":73,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
   "name":"obj_skii_lift_south_entrance",
@@ -11,7 +13,10 @@
     "name":"SkiiLift",
     "path":"folders/Rooms/World/SkiiLift.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_skii_lift_entrance",
+    "path":"objects/obj_skii_lift_entrance/obj_skii_lift_entrance.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
