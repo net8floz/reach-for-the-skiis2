@@ -59,6 +59,7 @@
     {"id":{"name":"obj_rm_intro_controller","path":"objects/obj_rm_intro_controller/obj_rm_intro_controller.yy",},},
     {"id":{"name":"obj_skii_lift_chair_shadow","path":"objects/obj_skii_lift_chair_shadow/obj_skii_lift_chair_shadow.yy",},},
     {"id":{"name":"obj_skii_lift_chair","path":"objects/obj_skii_lift_chair/obj_skii_lift_chair.yy",},},
+    {"id":{"name":"obj_skii_lift_entrance","path":"objects/obj_skii_lift_entrance/obj_skii_lift_entrance.yy",},},
     {"id":{"name":"obj_skii_lift_line_renderer","path":"objects/obj_skii_lift_line_renderer/obj_skii_lift_line_renderer.yy",},},
     {"id":{"name":"obj_skii_lift_north_entrance","path":"objects/obj_skii_lift_north_entrance/obj_skii_lift_north_entrance.yy",},},
     {"id":{"name":"obj_skii_lift_pole","path":"objects/obj_skii_lift_pole/obj_skii_lift_pole.yy",},},
